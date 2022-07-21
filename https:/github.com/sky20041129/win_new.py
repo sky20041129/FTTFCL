@@ -3,7 +3,7 @@ import os
 
 def raid_windows_fw_update():
     '''
-    Windows is base on python2
+    Windows is base on python3
     '''
 
     os.system("storcli64.exe show |findstr /c:PRAID")
