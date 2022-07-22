@@ -38,4 +38,48 @@ def raid_windows_fw_update():
 
 
 raid_windows_fw_update()
+------------------------------------------------------------------------------------------------
+
+import os 
+
+def raid_windows_fw_update():
+    '''
+    Windows is base on python3
+    '''
+    os.system("storcli64.exe show |findstr /c:PRAID")
+    os.system("storcli64.exe show |findstr /c:PSAS")
+    print("                             ")
+
+    x = int(input ("Please input your controller number:"))
+    print("Current version:")
+    os.system(f"storcli64.exe /c{x} show |findstr /c:FW")
+
+    print("                             ")
+    print("List the file:")
+    lin= os.popen("dir /b |findstr /c:.bin").readlines()
+    lin= os.popen("dir /b |findstr /c:.rom").readlines()
+    print (lin)
+
+    y = input ("Please input your file:")
+    linefile = lin[int(y)].rstrip()
+    print("                             ")
+
+
+    if x < 1:
+        os.system(f"storcli64.exe /c{x} download file={linefile} noverchk")
+        print("                             ")
+        print("Update version:")
+        os.system(f"storcli64.exe /c{x} show |findstr /c:FW")
+        os.system("pause")
+
+    else:
+        os.system(f"storcli64.exe /c{x} download file={linefile} noverchk")
+        print("                             ")
+        print("Update version:")
+        os.system(f"storcli64.exe /c{x} show |findstr /c:FW")
+        os.system("pause")
+
+
+raid_windows_fw_update()
+
 
